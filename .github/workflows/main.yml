@@ -36,7 +36,7 @@ jobs:
           packages: jsonlite, dplyr
           
       - name: Run R update script
-        run: Rscript get_mvp_odds.R
+        run: Rscript summer_league.R
         shell: bash
 
       - name: Commit changes in data folder
@@ -44,7 +44,7 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add data/mvp_odds*.csv
-          git diff --cached --quiet || git commit -m "Auto-update: mvp odds"
+          git diff --cached --quiet || git commit -m "Auto-update: Summer League 2026"
         shell: bash
 
       - name: Push changes
