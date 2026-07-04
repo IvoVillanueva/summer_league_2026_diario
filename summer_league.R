@@ -31,10 +31,24 @@ headers <- c(
 
 url <- "https://stats.nba.com/stats/leaguedashplayerstats?College=&Conference=&Country=&DateFrom=&DateTo=&Division=&DraftPick=&DraftYear=&GameScope=&GameSegment=&Height=&LastNGames=0&LeagueID=13&Location=&MeasureType=Base&Month=0&OpponentTeamID=0&Outcome=&PORound=0&PaceAdjust=N&PerMode=PerGame&Period=0&PlayerExperience=&PlayerPosition=&PlusMinus=N&Rank=N&Season=2026&SeasonSegment=&SeasonType=Regular%20Season&ShotClockRange=&StarterBench=&TeamID=0&TwoWay=&VsConference=&VsDivision=&Weight="
 
-res <- GET(url = url, add_headers(.headers=headers),
-  timeout(30)
-          )
+res <- RETRY(
+  "GET",
+  url,
+  add_headers(.headers = headers),
+  timeout(30),
+  times = 5,
+  pause_base = 5
+)
+
+cat("Código HTTP:", status_code(res), "\n")
+stop_for_status(res)
+
+txt <- content(res, "text", encoding = "UTF-8")
+cat(substr(txt, 1, 500), "\n")
+
+
 json_resp <- fromJSON(content(res, "text"))
+
 
 
 as_tibble(json_resp$resultSets$rowSet[[1]],
