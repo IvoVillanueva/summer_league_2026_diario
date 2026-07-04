@@ -39,4 +39,4 @@ as_tibble(json_resp$resultSets$rowSet[[1]],
                 .name_repair = ~json_resp$resultSets$headers[[1]]) %>%
 retype() %>%
   clean_names() %>%
-  write.csv(paste0("data/summer_2026", gsub("-", "_", today), ".csv"), row.names = F)
+  write.csv(paste0("data/summer_", gsub("-", "_", today), ".csv"), row.names = F)
