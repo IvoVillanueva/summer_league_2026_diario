@@ -3,7 +3,7 @@ name: Get Stats Summer League 2026
 on:
   workflow_dispatch:
   schedule:
-    - cron: '30 8 * * *'
+    - cron: '0 6 * * *' 
 
 jobs:
   Get-NBA-Summer-League-2026:
@@ -33,7 +33,7 @@ jobs:
       - name: Install CRAN packages
         uses: r-lib/actions/setup-r-dependencies@v2
         with: 
-          packages: jsonlite, dplyr
+          packages: jsonlite, dplyr, httr, janitor, hablar
           
       - name: Run R update script
         run: Rscript summer_league.R
